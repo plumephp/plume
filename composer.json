@@ -1,5 +1,5 @@
 {
-    "name": "plume/plume",
+    "name": "plumephp/plume",
     "description": "A micro framework for PHP.",
     "type": "library",
     "license": "BSD-2-Clause",
