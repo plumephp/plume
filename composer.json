@@ -1,0 +1,18 @@
+{
+    "name": "plume/plume",
+    "description": "A micro framework for PHP.",
+    "type": "library",
+    "license": "BSD-2-Clause",
+    "minimum-stability": "dev",
+    "require": {
+        "joshcam/mysqli-database-class": "^2.7"
+    },
+    "autoload": {
+        "psr-4": { 
+            "Plume\\": "src/Plume"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.5.7"
+    }
+}
