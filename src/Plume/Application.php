@@ -8,18 +8,10 @@
 
 namespace Plume;
 
-use Plume\Provider\ProviderTrait;
-use Plume\Core\ContextTrait;
-use Plume\Core\ArrayTrait;
-use Plume\Core\ConfigTrait;
+use Plume\Core\Application as App;
 
-class Application implements \ArrayAccess{
+class Application extends App{
 
-    use ProviderTrait;
-    use ArrayTrait;
-    use ContextTrait;
-    use ConfigTrait;
-    
     public function __construct($env = 'dev') {
         $this['plume.env'] = $env;
         $this['plume.time.start'] = $_SERVER['REQUEST_TIME'];
