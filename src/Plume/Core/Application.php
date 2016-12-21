@@ -15,8 +15,9 @@ class Application implements \ArrayAccess{
     use ConfigTrait;
 
     //init default config
-    // public function __construct() {
-    // }
+    public function __construct($env = 'dev') {
+    	$this['plume.env'] = $env;
+    }
 
     //run application
     // public function run(){
