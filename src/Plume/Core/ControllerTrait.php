@@ -10,6 +10,7 @@ trait ControllerTrait{
                 'api' => false,
                 'error' => false,
                 'view' => null,
+                'view_exception' => null,
             )
         );
 
@@ -20,6 +21,11 @@ trait ControllerTrait{
 
     protected function result($data){
         $this->context['response']['data'] = $data;
+        return $this;
+    }
+
+    protected function view_exception($view){
+        $this->context['response']['view_exception'] = $view;
         return $this;
     }
 

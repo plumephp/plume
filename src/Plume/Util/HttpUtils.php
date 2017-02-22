@@ -1,12 +1,12 @@
 <?php
 
-namespace Plume\Provider;
+namespace Plume\Util;
 
 /**
  * HTTP相关的功能工具
  */
 
-class HttpProvider extends Provider{
+class HttpUtils {
 
 	/**
 	 * 发起GET请求

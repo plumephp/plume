@@ -27,18 +27,19 @@ class ExceptionProvider extends Provider{
     }
 
     public function exception_function($e){
-    	//TODO:生成对应action的异常信息
-        $this->provider('log')->log($this->plume('plume.request.path.full'), 'exception_plume', $e->getMessage(), 'ERROR');
         $config = $this->plume();
         switch ($e->getCode()){
         case 404:
-          require $config['plume.root.path'].$config['plume.templates.404'];
-          break;  
+            $this->provider('log')->log('404', $this->plume('plume.request.path.full'), $e->getMessage(), 'ERROR');
+            require $config['plume.root.path'].$config['plume.templates.404'];
+            break;  
         case 300:
-          require $config['plume.root.path'].$config['plume.templates.300'];
-          break;
+            $this->provider('log')->log($this->plume('plume.request.path.full'), '300', $e->getMessage(), 'ERROR');
+            require $config['plume.root.path'].$config['plume.templates.300'];
+            break;
         default:
-          require $config['plume.root.path'].$config['plume.templates.500'];
+            $this->provider('log')->log($this->plume('plume.request.path.full'), '500', $e->getMessage(), 'ERROR');
+            require $config['plume.root.path'].$config['plume.templates.500'];
         }
         die();
     }

@@ -2,6 +2,8 @@
 
 namespace Plume\Provider;
 
+use Plume\Util\ViewUtils;
+
 class RenderProvider extends Provider{
 
 	/*
@@ -16,13 +18,13 @@ class RenderProvider extends Provider{
             exit;
         }
         if (!class_exists($name)) {
-            throw new \Exception($this->plume('plume.msg.error.controller'), 404);
+            throw new \Exception($this->plume('plume.msg.error.controller').':'.$name, 404);
         }
         //通过反射实例化类
         $class = new \ReflectionClass($name);
         $instance  = $class->newInstanceArgs(array($this->app));
         if (!$class->hasMethod($method)) {
-            throw new \Exception($this->plume('plume.msg.error.action'), 404);
+            throw new \Exception($this->plume('plume.msg.error.action').':'.$method, 404);
         }
         $log = $this->provider('log');
         $method = $class->getmethod($method);
@@ -55,11 +57,18 @@ class RenderProvider extends Provider{
             $route['viewPath'] = str_ireplace($route['action'].'.phtml', strtolower($actionResult['view'].'.phtml'), $route['viewPath']);
             $log->debug('renderView','View is redirected to '.$route['viewPath']);
         }
+        //重定向view_exception
+        if(!empty($actionResult['view_exception'])){
+            $route['viewPath'] = $this->plume('plume.root.path').'templates/'.$actionResult['view_exception'].'.phtml';
+            $log->debug('renderView','View_exception is redirected to '.$route['viewPath']);
+        }
         if(!file_exists($route['viewPath'])){
-            throw new \Exception($this->plume('plume.msg.error.view'), 404);
+            throw new \Exception($this->plume('plume.msg.error.view').':'.$route['viewPath'], 404);
         }
         //获取页面数据
         $data = $actionResult['data'];
+        //初始化view工具类
+        $view =  new ViewUtils();
         $plume = array(
             'ROOT_PATH' => $this->plume('plume.root.path'),
             'before' => $this->plume('plume.method.before.result'),

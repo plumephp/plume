@@ -11,8 +11,7 @@ class LogProvider extends Provider{
         }
     	$dir = $this->plume('plume.root.path').'var/logs/'.date('Y-m-d') .'/';
     	if(!is_dir($dir)){
-    		mkdir($dir);
-    		chmod($dir,0777);
+    		mkdir($dir, 0777, true);
     	}
     	$file = $dir.$fileName.'.log';
     	$date = date('Y/m/d H:i:s', time());
