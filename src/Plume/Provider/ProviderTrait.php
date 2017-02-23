@@ -54,5 +54,10 @@ trait ProviderTrait{
         $this->provider('session');
     }
 
+    public function getAsyncProvider(){
+        $this->provider('async');
+    }
+
+
 
 }
