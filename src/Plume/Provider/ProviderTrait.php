@@ -19,43 +19,43 @@ trait ProviderTrait{
     }
 
     public function getCacheProvider(){
-        $this->provider('cache');
+        return $this->provider('cache');
     }
 
     public function getDataBaseProvider(){
-        $this->provider('dataBase');
+        return $this->provider('dataBase');
     }
 
     public function getExceptionProvider(){
-        $this->provider('exception');
+        return $this->provider('exception');
     }
 
     public function getHttpProvider(){
-        $this->provider('http');
+        return $this->provider('http');
     }
 
     public function getLogProvider(){
-        $this->provider('log');
+        return $this->provider('log');
     }
 
     public function getRedisProvider(){
-        $this->provider('redis');
+        return $this->provider('redis');
     }
 
     public function getRenderProvider(){
-        $this->provider('render');   
+        return $this->provider('render');   
     }
 
     public function getRouteProvider(){
-        $this->provider('route');
+        return $this->provider('route');
     }
 
     public function getSessionProvider(){
-        $this->provider('session');
+        return $this->provider('session');
     }
 
     public function getAsyncProvider(){
-        $this->provider('async');
+        return $this->provider('async');
     }
 
 

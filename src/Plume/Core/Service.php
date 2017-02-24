@@ -4,11 +4,13 @@ namespace Plume\Core;
 
 use Plume\Core\MysqliTrait;
 use Plume\Core\ApplicationTrait;
+use Plume\Provider\ProviderTrait;
 
 class Service{
 
     use MysqliTrait;
     use ApplicationTrait;
+    use ProviderTrait;
 
     protected $dao = null;
     protected $classType = 'service';

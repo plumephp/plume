@@ -4,11 +4,13 @@ namespace Plume\Core;
 
 use Plume\Core\MysqliTrait;
 use Plume\Core\ApplicationTrait;
+use Plume\Provider\ProviderTrait;
 
 class Dao{
 
     use MysqliTrait;
     use ApplicationTrait;
+    use ProviderTrait;
 
     protected $tableName = null;
     protected $tableId = null;

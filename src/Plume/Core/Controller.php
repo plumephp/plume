@@ -4,11 +4,13 @@ namespace Plume\Core;
 
 use Plume\Core\ControllerTrait;
 use Plume\Core\ApplicationTrait;
+use Plume\Provider\ProviderTrait;
 
 class Controller{
 
     use ControllerTrait;
     use ApplicationTrait;
+    use ProviderTrait;
 
     protected $service = null;
 
