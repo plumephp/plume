@@ -28,9 +28,8 @@ class Controller{
 	protected function getParamValue($paramName, $default=null) {
 		if (isset($_REQUEST[$paramName])) {
             return is_array($_REQUEST[$paramName]) ? $_REQUEST[$paramName] : trim($_REQUEST[$paramName]);
-		} else {
-			return trim($default);
 		}
+	    return $default;
 	}
 
 	protected function isPost() {
