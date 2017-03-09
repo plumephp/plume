@@ -7,6 +7,10 @@ trait ProviderTrait{
     protected $providers = array();
 
     public function provider($providerName){
+        //fix database for db provider
+        if(strtolower($providerName) == "database"){
+            $providerName = "dataBase";
+        }
         if(!isset($this->providers[$providerName])){
             $class = 'Plume\Provider\\'.ucfirst($providerName).'Provider';
             try {
