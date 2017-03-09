@@ -52,14 +52,14 @@ trait ApplicationTrait{
     }
 
     /**
-     * @return DataBaseProvider
+     * @return \Plume\Provider\DataBaseProvider
      */
     public function getDataBaseProvider(){
         return $this->app->provider('dataBase');
     }
 
     /**
-     * @return MysqliDb
+     * @return \MysqliDb
      */
     public function getDB(){
         return $this->app->provider('dataBase')->connect();
@@ -70,21 +70,21 @@ trait ApplicationTrait{
     }
 
     /**
-     * @return LogProvider
+     * @return \Plume\Provider\LogProvider
      */
     public function getLogProvider(){
         return $this->app->provider('log');
     }
 
     /**
-     * @return RedisProvider
+     * @return \Plume\Provider\RedisProvider
      */
     public function getRedisProvider(){
         return $this->app->provider('redis');
     }
 
     /**
-     * @return redis
+     * @return \redis
      */
     public function getRedis(){
         return $this->app->provider('redis')->connect();
@@ -95,7 +95,7 @@ trait ApplicationTrait{
     }
 
     /**
-     * @return redis
+     * @return \redis
      */
     public function getSlaveRedis(){
         return $this->app->provider('redis')->connectSlave();
@@ -106,17 +106,24 @@ trait ApplicationTrait{
     }
 
     /**
-     * @return SessionProvider
+     * @return \Plume\Provider\SessionProvider
      */
     public function getSessionProvider(){
         return $this->app->provider('session');
     }
 
     /**
-     * @return AsyncProvider
+     * @return \Plume\Provider\AsyncProvider
      */
     public function getAsyncProvider(){
         return $this->app->provider('async');
+    }
+
+    /**
+    * @return \GearmanClient
+    */
+    public function getGearmanClient(){
+        return $this->app->provider('async')->connect();   
     }
 
     
