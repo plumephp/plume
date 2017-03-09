@@ -30,7 +30,7 @@ trait ContextTrait{
         //plume系统使用全局参数
         'plume.time.start' => 0,
         'plume.request.path' => '/',
-        'plume.request.path.full' => '/'
+        'plume.request.path.full' => 'default'
     );
 
     public function getContext(){
