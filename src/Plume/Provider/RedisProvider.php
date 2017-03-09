@@ -10,7 +10,7 @@ class RedisProvider extends Provider{
 
     private $instance_slave = null;
 
-    public function connect_slave(){
+    public function connectSlave(){
         if($this->instance_slave instanceof redisClient){
             return $this->$instance_slave;
         }
@@ -64,4 +64,11 @@ class RedisProvider extends Provider{
             $this->instance->close();
         }
     }
+
+    public function closeSlave(){
+        if($this->instance_slave instanceof redisClient){
+            $this->instance_slave->close();
+        }
+    }
+
 }

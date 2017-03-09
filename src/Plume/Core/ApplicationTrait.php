@@ -55,35 +55,68 @@ trait ApplicationTrait{
      * @return DataBaseProvider
      */
     public function getDataBaseProvider(){
-        return $this->provider('dataBase');
+        return $this->app->provider('dataBase');
+    }
+
+    /**
+     * @return MysqliDb
+     */
+    public function getDB(){
+        return $this->app->provider('dataBase')->connect();
+    }
+
+    public function closeDB(){
+        return $this->app->provider('dataBase')->__destruct();
     }
 
     /**
      * @return LogProvider
      */
     public function getLogProvider(){
-        return $this->provider('log');
+        return $this->app->provider('log');
     }
 
     /**
      * @return RedisProvider
      */
     public function getRedisProvider(){
-        return $this->provider('redis');
+        return $this->app->provider('redis');
+    }
+
+    /**
+     * @return redis
+     */
+    public function getRedis(){
+        return $this->app->provider('redis')->connect();
+    }
+
+    public function closeRedis(){
+        return $this->app->provider('redis')->close();
+    }
+
+    /**
+     * @return redis
+     */
+    public function getSlaveRedis(){
+        return $this->app->provider('redis')->connectSlave();
+    }
+
+    public function closeSlaveRedis(){
+        return $this->app->provider('redis')->closeSlave();
     }
 
     /**
      * @return SessionProvider
      */
     public function getSessionProvider(){
-        return $this->provider('session');
+        return $this->app->provider('session');
     }
 
     /**
      * @return AsyncProvider
      */
     public function getAsyncProvider(){
-        return $this->provider('async');
+        return $this->app->provider('async');
     }
 
     
