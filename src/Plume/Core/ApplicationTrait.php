@@ -51,26 +51,11 @@ trait ApplicationTrait{
         return $this->app->provider($providerName);
     }
 
-
-    /**
-     * @return CacheProvider
-     */
-    public function getCacheProvider(){
-        return $this->provider('cache');
-    }
-
     /**
      * @return DataBaseProvider
      */
     public function getDataBaseProvider(){
         return $this->provider('dataBase');
-    }
-
-    /**
-     * @return ExceptionProvider
-     */
-    public function getExceptionProvider(){
-        return $this->provider('exception');
     }
 
     /**
@@ -85,20 +70,6 @@ trait ApplicationTrait{
      */
     public function getRedisProvider(){
         return $this->provider('redis');
-    }
-
-    /**
-     * @return RenderProvider
-     */
-    public function getRenderProvider(){
-        return $this->provider('render');   
-    }
-
-    /**
-     * @return RouteProvider
-     */
-    public function getRouteProvider(){
-        return $this->provider('route');
     }
 
     /**
