@@ -8,10 +8,6 @@ trait ApplicationTrait{
 
     protected $app = null;
 
-    protected function provider($providerName){
-        return $this->app->provider($providerName);
-    }
-
     protected function log($title, $data){
     	$this->app->provider('log')->info($title, $data);
     	return $this;
@@ -45,4 +41,74 @@ trait ApplicationTrait{
         //set method
         $this->app[$key] = $val;
     }
+
+    protected function provider($providerName){
+        return $this->app->provider($providerName);
+    }
+
+
+    /**
+     * @return CacheProvider
+     */
+    public function getCacheProvider(){
+        return $this->provider('cache');
+    }
+
+    /**
+     * @return DataBaseProvider
+     */
+    public function getDataBaseProvider(){
+        return $this->provider('dataBase');
+    }
+
+    /**
+     * @return ExceptionProvider
+     */
+    public function getExceptionProvider(){
+        return $this->provider('exception');
+    }
+
+    /**
+     * @return LogProvider
+     */
+    public function getLogProvider(){
+        return $this->provider('log');
+    }
+
+    /**
+     * @return RedisProvider
+     */
+    public function getRedisProvider(){
+        return $this->provider('redis');
+    }
+
+    /**
+     * @return RenderProvider
+     */
+    public function getRenderProvider(){
+        return $this->provider('render');   
+    }
+
+    /**
+     * @return RouteProvider
+     */
+    public function getRouteProvider(){
+        return $this->provider('route');
+    }
+
+    /**
+     * @return SessionProvider
+     */
+    public function getSessionProvider(){
+        return $this->provider('session');
+    }
+
+    /**
+     * @return AsyncProvider
+     */
+    public function getAsyncProvider(){
+        return $this->provider('async');
+    }
+
+    
 }
