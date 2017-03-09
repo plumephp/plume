@@ -13,6 +13,11 @@ trait ApplicationTrait{
     	return $this;
     }
 
+    protected function debug($title, $data){
+        $this->app->provider('log')->debug($title, $data);
+        return $this;
+    }
+
     protected function id(){
     	return Guid::get();
     }
