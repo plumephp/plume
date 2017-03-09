@@ -7,12 +7,18 @@ use Plume\Util\Guid;
 trait ApplicationTrait{
 
     protected $app = null;
-
+    
+    /**
+     * @return \Plume\Core\ApplicationTrait
+     */
     protected function log($title, $data){
     	$this->app->provider('log')->info($title, $data);
     	return $this;
     }
 
+    /**
+     * @return \Plume\Core\ApplicationTrait
+     */
     protected function debug($title, $data){
         $this->app->provider('log')->debug($title, $data);
         return $this;
@@ -65,6 +71,9 @@ trait ApplicationTrait{
         return $this->app->provider('dataBase')->connect();
     }
 
+    /**
+     * @return \Plume\Core\ApplicationTrait
+     */
     public function closeDB(){
         $this->app->provider('dataBase')->connect()->__destruct();
         return $this;
@@ -91,6 +100,9 @@ trait ApplicationTrait{
         return $this->app->provider('redis')->connect();
     }
 
+    /**
+     * @return \Plume\Core\ApplicationTrait
+     */
     public function closeRedis(){
         $this->app->provider('redis')->close();
         return $this;
