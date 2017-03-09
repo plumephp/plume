@@ -181,6 +181,11 @@ trait MysqliTrait{
         $this->getConnection()->rollback();
 	}
 
+	//关闭连接
+	public function close(){
+		$this->getConnection()->__destruct();
+	}
+
 	private function getConnection(){
 		return $this->getDao()->connect();
 	}
