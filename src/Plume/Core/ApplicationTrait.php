@@ -66,7 +66,8 @@ trait ApplicationTrait{
     }
 
     public function closeDB(){
-        return $this->app->provider('dataBase')->__destruct();
+        $this->app->provider('dataBase')->connect()->__destruct();
+        return $this;
     }
 
     /**
@@ -91,7 +92,8 @@ trait ApplicationTrait{
     }
 
     public function closeRedis(){
-        return $this->app->provider('redis')->close();
+        $this->app->provider('redis')->close();
+        return $this;
     }
 
     /**
@@ -101,8 +103,12 @@ trait ApplicationTrait{
         return $this->app->provider('redis')->connectSlave();
     }
 
+    /**
+     * @return \Plume\Core\ApplicationTrait
+     */
     public function closeSlaveRedis(){
-        return $this->app->provider('redis')->closeSlave();
+        $this->app->provider('redis')->closeSlave();
+        return $this;
     }
 
     /**
