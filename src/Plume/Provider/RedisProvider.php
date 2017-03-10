@@ -62,12 +62,14 @@ class RedisProvider extends Provider{
     public function close(){
         if($this->instance instanceof redisClient){
             $this->instance->close();
+            $this->instance = null;
         }
     }
 
     public function closeSlave(){
         if($this->instance_slave instanceof redisClient){
             $this->instance_slave->close();
+            $this->instance_slave = null;
         }
     }
 
