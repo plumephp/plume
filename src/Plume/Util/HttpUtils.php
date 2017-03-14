@@ -66,8 +66,9 @@ class HttpUtils {
 		curl_setopt ( $oCurl, CURLOPT_URL, $url );
 		curl_setopt ( $oCurl, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt ( $oCurl, CURLOPT_POST, true );
+		curl_setopt ( $oCurl, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt ( $oCurl, CURLOPT_POSTFIELDS, $strPOST );
-		curl_setopt($oCurl, CURLOPT_TIMEOUT, $timeOut);
+		curl_setopt ($oCurl, CURLOPT_TIMEOUT, $timeOut);
 		$sContent = curl_exec ( $oCurl );
 		$aStatus = curl_getinfo ( $oCurl );
 		curl_close ( $oCurl );
