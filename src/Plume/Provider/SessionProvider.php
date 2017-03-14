@@ -9,7 +9,7 @@ class SessionProvider extends Provider{
 	 * @param mixed $value
 	 */
 	public static function setSessionValue($key, $value) {
-		if(empty($_SESSION)){
+		if(!isset($_SESSION)){
 			session_start();
 		}
 		$_SESSION[$key] = $value;
@@ -22,7 +22,7 @@ class SessionProvider extends Provider{
 	 * @return mixed
 	 */
 	public static function getSessionValue($key, $default=null) {
-		if(empty($_SESSION)){
+		if(!isset($_SESSION)){
 			session_start();
 		}
 		return (isset($_SESSION[$key]) ? $_SESSION[$key] : $default);
@@ -34,7 +34,7 @@ class SessionProvider extends Provider{
 	 * @param $key
 	 */
 	public static function unsetSession($key) {
-		if(empty($_SESSION)){
+		if(!isset($_SESSION)){
 			session_start();
 		}
 		if (isset($_SESSION[$key])) {
