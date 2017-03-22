@@ -20,4 +20,11 @@ class DataBaseProvider extends Provider{
 		}
 		return $this->con;
 	}
+
+	public function close(){
+		if(!is_null($this->con)){
+			$this->con->__destruct();
+			$this->con = null;
+		}
+	}
 }

@@ -75,6 +75,7 @@ trait ApplicationTrait{
      * @return \Plume\Core\ApplicationTrait
      */
     public function closeDB(){
+        // $this->app->provider('dataBase')->close();
         $this->app->provider('dataBase')->connect()->__destruct();
         return $this;
     }
