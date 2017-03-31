@@ -25,6 +25,7 @@ class HttpUtils {
 		curl_setopt($oCurl, CURLOPT_TIMEOUT, $timeOut);
 		$sContent = curl_exec ( $oCurl );
 		$aStatus = curl_getinfo ( $oCurl );
+        $error = curl_error( $oCurl );
 		curl_close ( $oCurl );
 		if (intval ( $aStatus ["http_code"] ) == 200) {
 			return array(
@@ -35,7 +36,7 @@ class HttpUtils {
 		} else {
 			return array(
 					'status' => false,
-					'content' => false,
+					'content' => json_encode(array("error" => $error, "url" => $url)),
 					'code' => $aStatus ["http_code"],
 			);
 		}
@@ -71,6 +72,7 @@ class HttpUtils {
 		curl_setopt ($oCurl, CURLOPT_TIMEOUT, $timeOut);
 		$sContent = curl_exec ( $oCurl );
 		$aStatus = curl_getinfo ( $oCurl );
+        $error = curl_error( $oCurl );
 		curl_close ( $oCurl );
 		if (intval ( $aStatus ["http_code"] ) == 200) {
 			return array(
