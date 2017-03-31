@@ -81,7 +81,7 @@ class HttpUtils {
 		} else {
 			return array(
 					'status' => false,
-					'content' => false,
+					'content' => json_encode(array("error" => $error, "url" => $url)),
 					'code' => $aStatus ["http_code"],
 			);
 		}
