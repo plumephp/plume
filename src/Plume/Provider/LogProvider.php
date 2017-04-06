@@ -2,11 +2,31 @@
 
 namespace Plume\Provider;
 
+use Plume\Utils\ArrayUtils;
+
 class LogProvider extends Provider{
 
     public function log($fileName, $title, $info = array(), $level = null){
     	$level = is_null($level) ? 'INFO' : strtoupper($level);
         if($level === 'DEBUG' && !$this->plume('plume.log.debug')){
+            return;
+        }
+        //异步日志
+        $logConfig = $this->getConfigValue('log');
+        if(!empty($logConfig){
+            $env = $this->plume('plume.env');
+            $name = ArrayUtils::getValue($logConfig, 'project_name', 'project_default');
+            $data = array(
+                'env' => $env,
+                'project_name' => $name,
+                'fileName' => $fileName,
+                'title' => $title,
+                'info' => $info,
+                'level' => $level
+            );
+            $serverConfig = isset($logConfig['server']) ? $logConfig['server'] : array('127.0.0.1' => 4730);
+            $client = $this->provider('async')->connect($serverConfig);
+            $client->doBackground('Plume::LogService::log', json_encode($data));
             return;
         }
     	$dir = $this->plume('plume.root.path').'var/logs/'.date('Y-m-d') .'/';
