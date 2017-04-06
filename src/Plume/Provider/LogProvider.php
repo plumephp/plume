@@ -2,7 +2,7 @@
 
 namespace Plume\Provider;
 
-use Plume\Utils\ArrayUtils;
+use Plume\Util\ArrayUtils;
 
 class LogProvider extends Provider{
 
