@@ -10,7 +10,7 @@ class AsyncProvider extends Provider{
 
 	public function connect($servers = null){
 		if(is_null($this->client)){
-			$this->client = new GearmanClient();
+			$this->client = new Client();
 			$config = $this->getConfig();
             if(empty($servers)){
                 $server = isset($config['gearman']) ? $config['gearman'] : array('127.0.0.1' => 4730);

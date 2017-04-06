@@ -13,7 +13,7 @@ class LogProvider extends Provider{
         }
         //异步日志
         $logConfig = $this->getConfigValue('log');
-        if(!empty($logConfig){
+        if(!empty($logConfig)){
             $env = $this->plume('plume.env');
             $name = ArrayUtils::getValue($logConfig, 'project_name', 'project_default');
             $data = array(
@@ -26,7 +26,7 @@ class LogProvider extends Provider{
             );
             $serverConfig = isset($logConfig['server']) ? $logConfig['server'] : array('127.0.0.1' => 4730);
             $client = $this->provider('async')->connect($serverConfig);
-            $client->doBackground('Plume::LogService::log', json_encode($data));
+            $client->doBackground('Service::Log::asyncLog', json_encode($data));
             return;
         }
     	$dir = $this->plume('plume.root.path').'var/logs/'.date('Y-m-d') .'/';
