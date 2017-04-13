@@ -15,6 +15,7 @@ trait ContextTrait{
         'plume.cache.driver' => 'files',
         'plume.cache.expire' => 5,
         'plume.module.default' => 'plume',
+        'plume.module.prefix' => '',
         'plume.method.before' => 'beforeDispatch',
         'plume.method.before.result' => 'nothing',
         'plume.method.after' => 'afterDispatch',
