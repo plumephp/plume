@@ -3,6 +3,7 @@
 namespace Plume\Provider;
 
 use Plume\Util\ArrayUtils;
+use Plume\Util\IPUtils;
 
 class LogProvider extends Provider{
 
@@ -14,7 +15,7 @@ class LogProvider extends Provider{
         //异步日志
         $logConfig = $this->getConfigValue('log');
         if(!empty($logConfig)){
-            $env = $this->plume('plume.env');
+4730            $env = $this->plume('plume.env');
             $name = ArrayUtils::getValue($logConfig, 'project_name', 'project_default');
             $data = array(
                 'env' => $env,
@@ -46,6 +47,25 @@ class LogProvider extends Provider{
         }
         $startTime = is_null($startTime) ? $this->plume('plume.time.start') : $startTime;
         $spendTime = microtime(true) - $startTime;
+        //异步性能日志
+        $timeConfig = $this->plume('plume.log.time.config');
+        if(!empty($timeConfig)){
+            $env = $this->plume('plume.env');
+            $data = array(
+                'ip_remote' => IPUtils::getRemoteIP(),
+                'ip_local' => $timeConfig['ip_local'];,
+                'project' => $timeConfig['project'],
+                'url' => $this->plume('plume.request.path'),
+                'time_used' => $spendTime,
+                'time_create' => IPUtils::getUTCTime(),
+                'context' => '',
+                'note' => '',
+                'env' => $env
+            );
+            $client = $this->provider('async')->connect($timeConfig['server']);
+            $client->doBackground('Service::Log::asyncTime', json_encode($data));
+            return;
+        }
         $this->log('spendtime', $this->plume('plume.request.path'), $spendTime);
     }
 
