@@ -24,9 +24,4 @@ class IPUtils {
         }
         return $realip;
     }
-
-    public static function getUTCTime(){
-        date_default_timezone_set('UTC');
-        return date('Y-m-d\TH:i:s\Z');
-    }
 }

@@ -57,7 +57,7 @@ class LogProvider extends Provider{
                 'project' => $timeConfig['project'],
                 'url' => $this->plume('plume.request.path'),
                 'time_used' => $spendTime,
-                'time_create' => IPUtils::getUTCTime(),
+                'time_create' => '',
                 'context' => '',
                 'note' => '',
                 'env' => $env
