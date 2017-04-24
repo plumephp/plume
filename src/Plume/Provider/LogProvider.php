@@ -15,7 +15,7 @@ class LogProvider extends Provider{
         //异步日志
         $logConfig = $this->getConfigValue('log');
         if(!empty($logConfig)){
-4730            $env = $this->plume('plume.env');
+            $env = $this->plume('plume.env');
             $name = ArrayUtils::getValue($logConfig, 'project_name', 'project_default');
             $data = array(
                 'env' => $env,
@@ -53,7 +53,7 @@ class LogProvider extends Provider{
             $env = $this->plume('plume.env');
             $data = array(
                 'ip_remote' => IPUtils::getRemoteIP(),
-                'ip_local' => $timeConfig['ip_local'];,
+                'ip_local' => $timeConfig['ip_local'],
                 'project' => $timeConfig['project'],
                 'url' => $this->plume('plume.request.path'),
                 'time_used' => $spendTime,
