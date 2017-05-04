@@ -12,7 +12,7 @@ class RedisProvider extends Provider{
 
     public function connectSlave(){
         if($this->instance_slave instanceof redisClient){
-            return $this->$instance_slave;
+            return $this->instance_slave;
         }
         $this->instance_slave = $this->instance_slave ?: new RedisClient();
         $config = $this->getConfig();
