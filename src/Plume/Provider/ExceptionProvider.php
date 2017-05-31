@@ -38,7 +38,7 @@ class ExceptionProvider extends Provider{
             require $config['plume.root.path'].$config['plume.templates.300'];
             break;
         default:
-            $this->provider('log')->log($this->plume('plume.request.path.full'), '500', $e->getMessage(), 'ERROR');
+            $this->provider('log')->log($this->plume('plume.request.path.full'), '500', $e->getMessage().' line num:'.$e->getLine(), 'ERROR');
             require $config['plume.root.path'].$config['plume.templates.500'];
         }
         die();
