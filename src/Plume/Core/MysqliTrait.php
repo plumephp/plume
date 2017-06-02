@@ -187,7 +187,11 @@ trait MysqliTrait{
 	}
 
 	private function getConnection(){
-		return $this->getDao()->connect();
+        $conn = $this->getDao()->connect();
+        if (!$conn->ping()){
+            $conn->connect();
+        }
+        return $conn;
 	}
 
 	private function getDao(){
