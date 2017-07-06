@@ -14,7 +14,7 @@ class DataBaseProvider extends Provider{
 			$mysqliDb = new MysqliDb(
 				$config['host'], $config['username'],
 				$config['password'], $config['database'],
-				$config['port'], $config['charset']
+				(int)$config['port'], $config['charset']
 			);
 			$this->con = $mysqliDb->getInstance();
 		}
