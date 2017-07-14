@@ -12,7 +12,12 @@ class RedisProvider extends Provider{
 
     public function connectSlave(){
         if($this->instance_slave instanceof redisClient){
-            return $this->instance_slave;
+            try{
+                $this->instance_slave->ping();
+                return $this->instance_slave;
+            }catch(\Exception $e){
+                $this->instance_slave = null;
+            }
         }
         $this->instance_slave = $this->instance_slave ?: new RedisClient();
         $config = $this->getConfig();
@@ -37,7 +42,12 @@ class RedisProvider extends Provider{
 
     public function connect(){
         if($this->instance instanceof redisClient){
-            return $this->instance;
+            try{
+                $this->instance->ping();
+                return $this->instance;
+            }catch(\Exception $e){
+                $this->instance = null;
+            }
         }
         $this->instance = $this->instance ?: new RedisClient();
         $config = $this->getConfig();
