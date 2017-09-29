@@ -88,7 +88,7 @@ trait MysqliTrait{
 	 * @return array
 	 */
 	public function fetchAll($order=array()) {
-		return $this->provider('cache')->cacheWith(function(){
+		return $this->provider('cache')->cacheWith(function($order){
 			$obj = $this->getConnection();
 	        if (empty($order) == false) {
 	            foreach ($order as $key => $value) {
