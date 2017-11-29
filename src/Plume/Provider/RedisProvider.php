@@ -13,8 +13,12 @@ class RedisProvider extends Provider{
     public function connectSlave(){
         if($this->instance_slave instanceof redisClient){
             try{
-                $this->instance_slave->ping();
-                return $this->instance_slave;
+	            $pingRet = $this->instance_slave->ping();
+	            if ($pingRet == '+PONG') {
+		            return $this->instance_slave;
+	            } else {
+		            $this->instance_slave = null;
+	            }
             }catch(\Exception $e){
                 $this->instance_slave = null;
             }
@@ -43,8 +47,12 @@ class RedisProvider extends Provider{
     public function connect(){
         if($this->instance instanceof redisClient){
             try{
-                $this->instance->ping();
-                return $this->instance;
+                $pingRet = $this->instance->ping();
+	            if ($pingRet == '+PONG') {
+		            return $this->instance;
+	            } else {
+		            $this->instance = null;
+	            }
             }catch(\Exception $e){
                 $this->instance = null;
             }
