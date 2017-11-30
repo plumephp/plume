@@ -108,7 +108,7 @@ class RedisProvider extends Provider{
             $this->instance->select((int) $database);
         }
         if ($this->instance->get('plume__ping') != 'pong') {
-            $this->connect();//redis 链接异常时会一直递归
+            $this->useLongConnect();//redis 链接异常时会一直递归
         }
         return $this->instance;
     }
