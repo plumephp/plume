@@ -13,8 +13,8 @@ class RedisProvider extends Provider{
     public function connectSlave(){
         if($this->instance_slave instanceof redisClient){
             try{
-	            $pingRet = $this->instance_slave->ping();
-	            if ($pingRet == '+PONG') {
+	            //$pingRet = $this->instance_slave->ping();//$pingRet 会返回+OK 、:0等除了+PONG以外的值
+                if ($this->instance->get('plume__ping') == 'pong') {//用get获取预设值代替ping
 		            return $this->instance_slave;
 	            } else {
 		            $this->instance_slave = null;
@@ -47,8 +47,8 @@ class RedisProvider extends Provider{
     public function connect(){
         if($this->instance instanceof redisClient){
             try{
-                $pingRet = $this->instance->ping();
-	            if ($pingRet == '+PONG') {
+                //$pingRet = $this->instance->ping();//$pingRet 会返回+OK 、:0等除了+PONG以外的值
+                if ($this->instance->get('plume__ping') == 'pong') {//用get获取预设值代替ping
 		            return $this->instance;
 	            } else {
 		            $this->instance = null;
