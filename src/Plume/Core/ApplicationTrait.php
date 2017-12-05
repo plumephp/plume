@@ -24,8 +24,8 @@ trait ApplicationTrait{
         return $this;
     }
 
-    protected function id(){
-    	return Guid::get();
+    protected function id($prefix=null){
+    	return Guid::get($prefix);
     }
 
     protected function getConfig(){
