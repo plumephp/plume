@@ -23,7 +23,9 @@ class DataBaseProvider extends Provider{
 
 	public function close(){
 		if(!is_null($this->con)){
-			//$this->con->__destruct();
+			if($this->con instanceof MysqliDb){
+				$this->con->disconnect();
+			}
 			$this->con = null;
 		}
 	}

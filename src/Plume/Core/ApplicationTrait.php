@@ -144,6 +144,4 @@ trait ApplicationTrait{
     public function getGearmanClient(){
         return $this->app->provider('async')->connect();   
     }
-
-    
 }
