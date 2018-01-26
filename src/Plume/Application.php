@@ -20,7 +20,7 @@ class Application extends App{
     }
 
     public function run(){
-        $this->provider('exception')->handle();
+        //$this->provider('exception')->handle();
         //处理请求
         $this->provider('route')->handleRequest();
         header('Content-Type: text/html; charset=UTF-8');
