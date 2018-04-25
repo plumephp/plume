@@ -88,17 +88,13 @@ trait MysqliTrait{
 	 * @return array
 	 */
 	public function fetchAll($order=array()) {
-		return $this->provider('cache')->cacheWith(function($order){
-			$obj = $this->getConnection();
-	        if (empty($order) == false) {
-	            foreach ($order as $key => $value) {
-	                $obj->orderBy($key, $value);
-	            }
-	        }
-        	return $obj->get($this->getDao()->getTableName());
-		},
-		'db',
-		$this->getDao()->getTableName());
+		$obj = $this->getConnection();
+        if (empty($order) == false) {
+            foreach ($order as $key => $value) {
+                $obj->orderBy($key, $value);
+            }
+        }
+        return $obj->get($this->getDao()->getTableName());
 	}
 
 	/**
