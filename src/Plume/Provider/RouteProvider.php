@@ -31,15 +31,21 @@ class RouteProvider extends Provider{
         //设置默认header，以免在action进行echo
         $reqPathArr = explode('/', $reqPath);
 	    $prefixArr = explode('/', $this->plume('plume.module.prefix'));
-	    if(empty($this->plume('plume.module.prefix'))){
+	    if (!empty($reqPathArr)) {
 		    $module = ucfirst(ArrayUtils::getValue($reqPathArr, 1, $this->plume('plume.module.default')));
 		    $controller = ucfirst(ArrayUtils::getValue($reqPathArr, 2, 'index'));
 		    $action = ArrayUtils::getValue($reqPathArr, 3, 'index');
-	    }else{
-		    //使用模块名前缀配置，使页面访问路径缩短为二级路径
-		    $module = ucfirst(ArrayUtils::getValue($prefixArr, 0, $this->plume('plume.module.default')));
-		    $controller = ucfirst(ArrayUtils::getValue($prefixArr, 1, 'index'));
-		    $action = ArrayUtils::getValue($prefixArr, 2, 'index');
+	    } else {
+		    if (empty($this->plume('plume.module.prefix'))) {
+			    $module = ucfirst(ArrayUtils::getValue($reqPathArr, 1, $this->plume('plume.module.default')));
+			    $controller = ucfirst(ArrayUtils::getValue($reqPathArr, 2, 'index'));
+			    $action = ArrayUtils::getValue($reqPathArr, 3, 'index');
+		    } else {
+			    //使用模块名前缀配置，使页面访问路径缩短为二级路径
+			    $module = ucfirst(ArrayUtils::getValue($prefixArr, 0, $this->plume('plume.module.default')));
+			    $controller = ucfirst(ArrayUtils::getValue($prefixArr, 1, 'index'));
+			    $action = ArrayUtils::getValue($prefixArr, 2, 'index');
+		    }
 	    }
         $controllerClass = $module.'\\Controller\\'.$controller.'Controller';
         $actionName =  $action.'Action';
