@@ -65,17 +65,19 @@ trait ApplicationTrait{
     }
 
     /**
+     * @param string $db
      * @return \MysqliDb
      */
-    public function getDB(){
-        return $this->app->provider('dataBase')->connect();
+    public function getDB($db = 'db'){
+        return $this->app->provider('dataBase')->connect($db);
     }
 
     /**
+     * @param string $db
      * @return \Plume\Core\ApplicationTrait
      */
-    public function closeDB(){
-        $this->app->provider('dataBase')->close();
+    public function closeDB($db = 'db'){
+        $this->app->provider('dataBase')->close($db);
         //$this->app->provider('dataBase')->connect()->__destruct();
         return $this;
     }
