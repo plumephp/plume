@@ -31,7 +31,7 @@ class RouteProvider extends Provider{
         //设置默认header，以免在action进行echo
         $reqPathArr = explode('/', $reqPath);
 	    $prefixArr = explode('/', $this->plume('plume.module.prefix'));
-	    $pathStr = substr($reqPath, 1, count($reqPath));
+	    $pathStr = substr($reqPath, 1, strlen($reqPath));
 	    if (!empty($pathStr)) {
 		    $module = ucfirst(ArrayUtils::getValue($reqPathArr, 1, $this->plume('plume.module.default')));
 		    $controller = ucfirst(ArrayUtils::getValue($reqPathArr, 2, 'index'));
