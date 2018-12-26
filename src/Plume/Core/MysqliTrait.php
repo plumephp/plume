@@ -104,7 +104,9 @@ trait MysqliTrait{
 	 */
 	public function insert($insertData) {
 		$this->provider('cache')->cacheClear('db', $this->getDao()->getTableName());
-        return $this->getConnection()->insert($this->getDao()->getTableName(), $insertData);
+        $obj = $this->getConnection();
+        $obj->insert($this->getDao()->getTableName(), $insertData);
+        return $obj->count;
 	}
 
 	/**
@@ -121,7 +123,8 @@ trait MysqliTrait{
                 $obj->where($key, $value);                     
             }
         }
-        return $obj->update($this->getDao()->getTableName(), $set);
+        $obj->update($this->getDao()->getTableName(), $set);
+        return $obj->count;
 	}
 
 	/**
