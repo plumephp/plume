@@ -10,6 +10,8 @@ class RedisProvider extends Provider{
 
     private $instance_slave = null;
 
+    private $instance_pool = array();
+
     public function connectSlave(){
         if($this->instance_slave instanceof redisClient){
             try{
@@ -67,6 +69,36 @@ class RedisProvider extends Provider{
             $this->instance->select((int) $database);
         }
         return $this->instance;
+    }
+
+    public function connectByConfig($config){
+        $host = isset($config['host']) ? $config['host'] : '127.0.0.1';
+        $port = isset($config['port']) ? (int) $config['port'] : '6379';
+        $password = isset($config['password']) ? $config['password'] : '';
+        $database = isset($config['database']) ? $config['database'] : '0';
+        $timeout = isset($config['timeout']) ? $config['timeout'] : '0';
+
+        $name = $host.':'.$port.':'.$database;
+        if(isset($this->instance_pool[$name]) && $this->instance_pool[$name] instanceof redisClient){
+            try{
+                $this->instance_pool[$name]->ping();
+                return $this->instance_pool[$name];
+            }catch(\Exception $e){
+                $this->instance_pool[$name] = null;
+            }
+        }
+        $redis = new RedisClient();
+        if (!$redis->connect($host, (int) $port, (int) $timeout)) {
+            throw new \Exception('redis connection Failed');
+        }
+        if ($password && !$redis->auth($password)) {
+            throw new \Exception('redis password is wrong!');
+        }
+        if ($database) {
+            $redis->select((int) $database);
+        }
+        $this->instance_pool[$name] = $redis;
+        return $redis;
     }
 
     public function close(){

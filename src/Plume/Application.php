@@ -29,7 +29,10 @@ class Application extends App{
                 //处理路由
                 $route = $this->provider('route')->handleRoute();
                 //渲染Action
+                $requestId = \Plume\Util\Guid::get();
+                $this->provider('access')->request($requestId);
                 $data = $this->provider('render')->renderAction($route);
+                $this->provider('access')->response($requestId, $data);
                 //渲染View
                 $this->provider('render')->renderView($route, $data);
             },
