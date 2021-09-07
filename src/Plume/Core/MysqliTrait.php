@@ -14,7 +14,11 @@ trait MysqliTrait{
 
 	/**
 	 * 根据条件查询记录列表
-	 * $where 查询条件 【示例： array('title'=>'Fifth news') 】
+	 * $where 查询条件 【示例：
+	 * array('title'=>'Fifth news');
+	 * array('title'=>array('like', '%你好%'));
+	 * array('id'=>array('in', [1,2,3,4]))
+	 * 】
 	 * $fetchNum 要查询的记录数量
 	 * $skipNum 要跳过的记录数量
 	 * $order 排序条件 【示例： array('id'=>'desc') 】
@@ -30,7 +34,11 @@ trait MysqliTrait{
             return array();
         }
         foreach ($where as $key => $value) {
-            $obj->where($key, $value);
+        	if (is_array($value)) {
+		        $obj->where($key, $value[1], $value[0]);
+	        } else {
+		        $obj->where($key, $value);
+	        }
         }
 		if (empty($order) == false) {
 			foreach ($order as $key => $value) {
@@ -53,6 +61,11 @@ trait MysqliTrait{
 
 	/**
 	 * 获取满足条件的记录数
+	 * $where 查询条件 【示例：
+	 * array('title'=>'Fifth news');
+	 * array('title'=>array('like', '%你好%'));
+	 * array('id'=>array('in', [1,2,3,4]))
+	 * 】
 	 * @param string|array $where
 	 * @return int
 	 */
@@ -60,7 +73,11 @@ trait MysqliTrait{
         $obj = $this->getConnection();
         if (empty($where) == false) {
             foreach ($where as $key => $value) {
-                $obj->where($key, $value);
+	            if (is_array($value)) {
+		            $obj->where($key, $value[1], $value[0]);
+	            } else {
+		            $obj->where($key, $value);
+	            }
             }
         }
         $count = $obj->getValue($this->getDao()->getTableName(), 'count(1)');
