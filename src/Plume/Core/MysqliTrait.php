@@ -137,7 +137,11 @@ trait MysqliTrait{
         $obj = $this->getConnection();
         if (empty($where) == false) {
             foreach ($where as $key => $value) {
-                $obj->where($key, $value);                     
+	            if (is_array($value)) {
+		            $obj->where($key, $value[1], $value[0]);
+	            } else {
+		            $obj->where($key, $value);
+	            }
             }
         }
         $obj->update($this->getDao()->getTableName(), $set);
@@ -165,7 +169,11 @@ trait MysqliTrait{
         $obj = null;
         if (empty($where) == false) {
             foreach ($where as $key => $value) {
-                $obj = $this->getConnection()->where($key, $value);
+	            if (is_array($value)) {
+		            $obj = $this->getConnection()->where($key, $value[1], $value[0]);
+	            } else {
+		            $obj = $this->getConnection()->where($key, $value);
+	            }
             }
         }
         if ($obj ==  null) return false;
